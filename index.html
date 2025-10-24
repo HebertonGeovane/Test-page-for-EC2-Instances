@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Landing AWS - Web Server</title>
+
+    <!-- Tailwind -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Source -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- AOS Library -->
+    <link
+      href="https://unpkg.com/aos@2.3.1/dist/aos.css"
+      rel="stylesheet"
+    />
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+    <!-- Icons -->
+    <script src="https://unpkg.com/phosphor-icons"></script>
+
+    <style>
+      body {
+        font-family: "Outfit", sans-serif;
+        background: #0a0c15;
+        color: #f0f0f0;
+        overflow-x: hidden;
+      }
+
+      /* Particle background */
+      .particle-bg {
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        z-index: -1;
+        overflow: hidden;
+      }
+
+      .particle {
+        position: absolute;
+        background: rgba(0, 255, 255, 0.6);
+        border-radius: 50%;
+        animation: floatParticle linear infinite;
+      }
+
+      @keyframes floatParticle {
+        from {
+          transform: translateY(100vh) scale(0.8);
+          opacity: 0.4;
+        }
+        to {
+          transform: translateY(-10vh) scale(1);
+          opacity: 0;
+        }
+      }
+
+      .btn {
+        transition: all 0.3s ease;
+      }
+
+      .btn:hover {
+        transform: scale(1.05);
+        box-shadow: 0 0 25px rgba(0, 255, 255, 0.5);
+      }
+
+      .service-card {
+        transition: all 0.4s ease;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(0, 255, 255, 0.1);
+      }
+
+      .service-card:hover {
+        transform: translateY(-6px);
+        border-color: #00ffff;
+        box-shadow: 0 0 30px rgba(0, 255, 255, 0.25);
+      }
+
+      /* LinkedIn Icon */
+      .linkedin-icon:hover {
+        color: #0077b5;
+        transform: scale(1.1);
+        transition: all 0.3s ease;
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- Particle background -->
+    <div class="particle-bg" id="particles"></div>
+
+    <!-- Hero Section -->
+    <section
+      class="min-h-screen flex flex-col md:flex-row justify-center items-center text-center md:text-left px-6 space-y-10 md:space-y-0 md:space-x-10"
+      data-aos="fade-up"
+    >
+      <div>
+        <h1 class="text-5xl md:text-6xl font-bold text-cyan-400 drop-shadow-lg">
+          Hello from my Web Server
+        </h1>
+        <p class="mt-6 text-lg text-gray-300">
+          Região:
+          <span id="region" class="font-semibold text-cyan-300">Detectando...</span>
+          |
+          Zona de Disponibilidade:
+          <span id="az" class="font-semibold text-cyan-300">Detectando...</span>
+        </p>
+        <a
+          href="https://aws.amazon.com/pt/what-is-cloud-computing/"
+          target="_blank"
+          class="mt-8 inline-block px-10 py-3 rounded-full bg-cyan-500 text-white font-semibold btn"
+        >
+          Explorar AWS
+        </a>
+      </div>
+
+      <img
+        src="img/config-server.png"
+        alt="Config Server"
+        class="w-72 md:w-[420px] rounded-2xl shadow-lg"
+      />
+    </section>
+
+    <!-- About AWS -->
+    <section
+      class="flex flex-col md:flex-row items-center justify-center py-24 px-10"
+      data-aos="fade-up"
+    >
+      <img
+        src="img/aws-logo.png"
+        alt="AWS Logo"
+        class="w-64 md:w-80 mb-10 md:mb-0 md:mr-12"
+      />
+      <div class="max-w-xl">
+        <h2 class="text-4xl font-bold text-cyan-400 mb-6">Sobre a AWS</h2>
+        <p class="text-lg text-gray-300 leading-relaxed">
+          A <span class="text-cyan-300 font-semibold">Amazon Web Services (AWS)</span>
+          é a principal plataforma de computação em nuvem do mundo. Com mais de 200 serviços
+          disponíveis globalmente, ela permite que empresas e desenvolvedores inovem com rapidez,
+          segurança e escalabilidade em larga escala.
+        </p>
+      </div>
+    </section>
+
+    <!-- Services -->
+    <section class="py-24 px-8" data-aos="fade-up">
+      <h2 class="text-center text-4xl font-bold text-cyan-400 mb-14">Serviços</h2>
+
+      <div
+        class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 place-items-center"
+      >
+        <!-- EC2 -->
+        <div class="service-card rounded-2xl p-8 text-center">
+          <i class="ph ph-cloud text-5xl text-cyan-400 mb-4"></i>
+          <h3 class="text-2xl font-semibold text-cyan-300">EC2</h3>
+          <p class="text-gray-400 mt-2">
+            Serviço de computação na nuvem que permite criar e gerenciar servidores virtuais.
+          </p>
+          <a
+            href="https://aws.amazon.com/ec2/"
+            target="_blank"
+            class="mt-4 inline-block px-6 py-2 rounded-full bg-cyan-500 text-white font-semibold btn"
+          >
+            Saiba mais
+          </a>
+        </div>
+
+        <!-- S3 -->
+        <div class="service-card rounded-2xl p-8 text-center">
+          <i class="ph ph-database text-5xl text-cyan-400 mb-4"></i>
+          <h3 class="text-2xl font-semibold text-cyan-300">S3</h3>
+          <p class="text-gray-400 mt-2">
+            Armazenamento escalável e seguro para qualquer tipo de dado na nuvem.
+          </p>
+          <a
+            href="https://aws.amazon.com/s3/"
+            target="_blank"
+            class="mt-4 inline-block px-6 py-2 rounded-full bg-cyan-500 text-white font-semibold btn"
+          >
+            Saiba mais
+          </a>
+        </div>
+
+        <!-- Lambda -->
+        <div class="service-card rounded-2xl p-8 text-center">
+          <i class="ph ph-code text-5xl text-cyan-400 mb-4"></i>
+          <h3 class="text-2xl font-semibold text-cyan-300">Lambda</h3>
+          <p class="text-gray-400 mt-2">
+            Execute código sem precisar provisionar ou gerenciar servidores.
+          </p>
+          <a
+            href="https://aws.amazon.com/lambda/"
+            target="_blank"
+            class="mt-4 inline-block px-6 py-2 rounded-full bg-cyan-500 text-white font-semibold btn"
+          >
+            Saiba mais
+          </a>
+        </div>
+
+        <!-- CloudFront -->
+        <div class="service-card rounded-2xl p-8 text-center">
+          <i class="ph ph-globe text-5xl text-cyan-400 mb-4"></i>
+          <h3 class="text-2xl font-semibold text-cyan-300">CloudFront</h3>
+          <p class="text-gray-400 mt-2">
+            Entrega rápida e segura de conteúdo para usuários em qualquer lugar do mundo.
+          </p>
+          <a
+            href="https://aws.amazon.com/cloudfront/"
+            target="_blank"
+            class="mt-4 inline-block px-6 py-2 rounded-full bg-cyan-500 text-white font-semibold btn"
+          >
+            Saiba mais
+          </a>
+        </div>
+
+        <!-- RDS -->
+        <div class="service-card rounded-2xl p-8 text-center">
+          <i class="ph ph-server text-5xl text-cyan-400 mb-4"></i>
+          <h3 class="text-2xl font-semibold text-cyan-300">RDS</h3>
+          <p class="text-gray-400 mt-2">
+            Banco de dados relacional gerenciado, fácil de configurar e escalável.
+          </p>
+          <a
+            href="https://aws.amazon.com/rds/"
+            target="_blank"
+            class="mt-4 inline-block px-6 py-2 rounded-full bg-cyan-500 text-white font-semibold btn"
+          >
+            Saiba mais
+          </a>
+        </div>
+
+        <!-- Route 53 -->
+        <div class="service-card rounded-2xl p-8 text-center">
+          <i class="ph ph-compass text-5xl text-cyan-400 mb-4"></i>
+          <h3 class="text-2xl font-semibold text-cyan-300">Route 53</h3>
+          <p class="text-gray-400 mt-2">
+            Serviço de DNS escalável e altamente disponível que conecta usuários a aplicativos.
+          </p>
+          <a
+            href="https://aws.amazon.com/route53/"
+            target="_blank"
+            class="mt-4 inline-block px-6 py-2 rounded-full bg-cyan-500 text-white font-semibold btn"
+          >
+            Saiba mais
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- EC2 Section -->
+    <section
+      class="flex flex-col md:flex-row items-center justify-center py-24 px-10"
+      data-aos="fade-up"
+    >
+      <div class="max-w-xl md:mr-12">
+        <h2 class="text-4xl font-bold text-cyan-400 mb-6">Amazon EC2</h2>
+        <p class="text-lg text-gray-300 leading-relaxed">
+          O <span class="text-cyan-300 font-semibold">Amazon Elastic Compute Cloud (EC2)</span>
+          fornece capacidade computacional escalável na nuvem. Ele permite executar aplicações em
+          instâncias virtuais configuráveis, com alta disponibilidade, desempenho e segurança.
+        </p>
+      </div>
+      <img
+        src="img/config-server1.png"
+        alt="EC2 Server"
+        class="w-80 md:w-[420px] mt-10 md:mt-0 rounded-2xl shadow-lg"
+      />
+    </section>
+
+    <!-- Footer -->
+    <footer class="text-center py-8 text-gray-500 flex justify-center items-center space-x-3">
+      <p>© 2025 - Projeto Educacional AWS | Criado por @Heberton Geovane</p>
+      <a
+        href="https://www.linkedin.com/in/heberton-geovane/"
+        target="_blank"
+        class="text-gray-400 linkedin-icon"
+      >
+        <i class="ph ph-linkedin-logo text-2xl"></i>
+      </a>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+      AOS.init({ duration: 1200, once: true });
+
+      // Fundo de partículas
+      const container = document.getElementById("particles");
+      for (let i = 0; i < 80; i++) {
+        const p = document.createElement("div");
+        p.classList.add("particle");
+        const size = Math.random() * 4 + 2;
+        p.style.width = `${size}px`;
+        p.style.height = `${size}px`;
+        p.style.left = Math.random() * 100 + "vw";
+        p.style.animationDuration = Math.random() * 10 + 10 + "s";
+        p.style.animationDelay = Math.random() * 10 + "s";
+        container.appendChild(p);
+      }
+
+      // Detect region and availability zone (AWS EC2 IMDSv2)
+      async function getEC2Metadata() {
+        try {
+          // Obtain IMDSv2 token
+          const tokenRes = await fetch(
+            "http://169.254.169.254/latest/api/token",
+            {
+              method: "PUT",
+              headers: { "X-aws-ec2-metadata-token-ttl-seconds": "21600" },
+            }
+          );
+          const token = await tokenRes.text();
+
+          // Search AZ and region
+          const azRes = await fetch(
+            "http://169.254.169.254/latest/meta-data/placement/availability-zone",
+            { headers: { "X-aws-ec2-metadata-token": token } }
+          );
+          const az = await azRes.text();
+
+          document.getElementById("az").textContent = az;
+          document.getElementById("region").textContent = az.slice(0, -1);
+        } catch (e) {
+          document.getElementById("az").textContent = "Local";
+          document.getElementById("region").textContent = "Local";
+        }
+      }
+
+      getEC2Metadata();
+    </script>
+  </body>
+</html>
+

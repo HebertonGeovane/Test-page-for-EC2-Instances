@@ -35,24 +35,36 @@ Ele instala o Apache, clona o repositório e exibe a página diretamente no nave
 
 ```
 #!/bin/bash
-# Update the packages
+# Update packages
 sudo yum update -y
 
 # Install Git and Apache
 sudo yum install -y git httpd
 
-# Starts and enables Apache
+# Start and enable Apache
 sudo systemctl start httpd
 sudo systemctl enable httpd
 
-# Clone the GitHub repository
+# Clone the repository
 cd /var/www/html
 sudo git clone https://github.com/HebertonGeovane/Test-page-for-EC2-Instances.git
-
-# Move the files to the Apache root directory
 sudo cp -r Test-page-for-EC2-Instances/* /var/www/html/
 
-# Adjust permissions
+# ===== Get IMDSv2 token =====
+TOKEN=$(curl -X PUT "http://169.254.169.254/latest/api/token" \
+-H "X-aws-ec2-metadata-token-ttl-seconds: 21600" -s)
+
+# ===== Fetch metadata =====
+AZ=$(curl -H "X-aws-ec2-metadata-token: $TOKEN" \
+-s http://169.254.169.254/latest/meta-data/placement/availability-zone)
+REGION=${AZ::-1}
+
+# ===== Insert into the page =====
+sudo sed -i "s/<span id=\"region\" class=\"font-semibold text-cyan-300\">Detecting...<\/span>/<span id=\"region\" class=\"font-semibold text-cyan-300\">${REGION}<\/span>/g" /var/www/html/index.html
+
+sudo sed -i "s/<span id=\"az\" class=\"font-semibold text-cyan-300\">Detecting...<\/span>/<span id=\"az\" class=\"font-semibold text-cyan-300\">${AZ}<\/span>/g" /var/www/html/index.html
+
+# Permissions
 sudo chown -R apache:apache /var/www/html
 sudo systemctl restart httpd
 ```

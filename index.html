@@ -8,20 +8,20 @@
     <!-- Tailwind -->
     <script src="https://cdn.tailwindcss.com"></script>
 
-    <!-- Source -->
+    <!-- Fonte -->
     <link
       href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap"
       rel="stylesheet"
     />
 
-    <!-- AOS Library -->
+    <!-- AOS -->
     <link
       href="https://unpkg.com/aos@2.3.1/dist/aos.css"
       rel="stylesheet"
     />
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 
-    <!-- Icons -->
+    <!-- Icons-->
     <script src="https://unpkg.com/phosphor-icons"></script>
 
     <style>
@@ -32,7 +32,6 @@
         overflow-x: hidden;
       }
 
-      /* Particle background */
       .particle-bg {
         position: fixed;
         width: 100%;
@@ -82,7 +81,6 @@
         box-shadow: 0 0 30px rgba(0, 255, 255, 0.25);
       }
 
-      /* LinkedIn Icon */
       .linkedin-icon:hover {
         color: #0077b5;
         transform: scale(1.1);
@@ -148,7 +146,7 @@
       </div>
     </section>
 
-    <!-- Services -->
+    <!-- Servicesmc 39-->
     <section class="py-24 px-8" data-aos="fade-up">
       <h2 class="text-center text-4xl font-bold text-cyan-400 mb-14">Serviços</h2>
 
@@ -285,11 +283,10 @@
       </a>
     </footer>
 
-    <!-- Scripts -->
     <script>
       AOS.init({ duration: 1200, once: true });
 
-      // Fundo de partículas
+      
       const container = document.getElementById("particles");
       for (let i = 0; i < 80; i++) {
         const p = document.createElement("div");
@@ -306,28 +303,25 @@
       // Detect region and availability zone (AWS EC2 IMDSv2)
       async function getEC2Metadata() {
         try {
-          // Obtain IMDSv2 token
-          const tokenRes = await fetch(
-            "http://169.254.169.254/latest/api/token",
-            {
-              method: "PUT",
-              headers: { "X-aws-ec2-metadata-token-ttl-seconds": "21600" },
-            }
-          );
+          const tokenRes = await fetch("http://169.254.169.254/latest/api/token", {
+            method: "PUT",
+            headers: { "X-aws-ec2-metadata-token-ttl-seconds": "21600" },
+          });
           const token = await tokenRes.text();
 
-          // Search AZ and region
           const azRes = await fetch(
             "http://169.254.169.254/latest/meta-data/placement/availability-zone",
             { headers: { "X-aws-ec2-metadata-token": token } }
           );
           const az = await azRes.text();
 
+          
           document.getElementById("az").textContent = az;
           document.getElementById("region").textContent = az.slice(0, -1);
-        } catch (e) {
-          document.getElementById("az").textContent = "Local";
+        } catch (error) {
+          console.warn("Não foi possível obter metadados da instância EC2:", error);
           document.getElementById("region").textContent = "Local";
+          document.getElementById("az").textContent = "Local";
         }
       }
 

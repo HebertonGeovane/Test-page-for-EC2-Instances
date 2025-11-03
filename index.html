@@ -104,10 +104,10 @@
         </h1>
         <p class="mt-6 text-lg text-gray-300">
           Região:
-          <span id="region" class="font-semibold text-cyan-300">Detectando...</span>
+          <span id="region" class="font-semibold text-cyan-300">Detecting...</span>
           |
           Zona de Disponibilidade:
-          <span id="az" class="font-semibold text-cyan-300">Detectando...</span>
+          <span id="az" class="font-semibold text-cyan-300">Detecting...</span>
         </p>
         <a
           href="https://aws.amazon.com/pt/what-is-cloud-computing/"
@@ -319,9 +319,7 @@
           document.getElementById("az").textContent = az;
           document.getElementById("region").textContent = az.slice(0, -1);
         } catch (error) {
-          console.warn("Não foi possível obter metadados da instância EC2:", error);
-          document.getElementById("region").textContent = "Local";
-          document.getElementById("az").textContent = "Local";
+           console.warn("Falha ao acessar IMDS");
         }
       }
 
